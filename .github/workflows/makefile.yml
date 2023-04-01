@@ -7,12 +7,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up QEMU
-        uses: docker://multiarch/qemu-user-static
         
       - name: Set up QEMU
         run: docker run --privileged --name qemu-user-static --rm -v /usr/bin:/usr/bin -v /usr/lib:/usr/lib multiarch/qemu-user-static --reset -p yes
-
+      - name: Set up QEMU
+        uses: docker://multiarch/qemu-user-static
 
       - name: Clone kernel
         uses: actions/checkout@v2

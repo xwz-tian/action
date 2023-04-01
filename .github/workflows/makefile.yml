@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
-        uses: docker://ghcr.io/dockcross/linux-arm64
+        uses: docker://multiarch/qemu-user-static
 
       - name: Clone kernel
         uses: actions/checkout@v2

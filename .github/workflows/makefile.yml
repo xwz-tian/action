@@ -1,0 +1,29 @@
+name: Deploy kernel module
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker://davidburela/qemu
+
+      - name: Clone kernel
+        uses: actions/checkout@v2
+        with:
+          repository: torvalds/linux
+          ref: v5.10.25
+
+      - name: Compile module
+        run: make -C /github/workspace -f /github/workspace/Makefile
+
+      - name: Load module
+        run: insmod /github/workspace/my_module.ko
+
+      - name: Run tests
+        run: /github/workspace/test.sh
+
+      - name: Unload module
+        run: rmmod my_module
